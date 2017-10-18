@@ -1,0 +1,74 @@
+﻿@model web.Models.Theme
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Theme</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category1.text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category1.text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.body)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.editingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.editingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThemeNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThemeNotes)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
