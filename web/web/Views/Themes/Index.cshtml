@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Category1.text)
+            @Html.DisplayName("Категория")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.title)
@@ -59,9 +59,9 @@
             @Html.DisplayFor(modelItem => item.ThemeNotes)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Редактировать ", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Читать", "Details", new { id=item.id }) |
+            @Html.ActionLink("Удалить блог", "Delete", new { id=item.id })
         </td>
     </tr>
 }

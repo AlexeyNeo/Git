@@ -22,7 +22,9 @@ namespace web.Models
         public string title { get; set; }
 
         [Column(TypeName = "text")]
+        [Display(Name = "Тело блога")]
         [Required]
+        
         public string body { get; set; }
 
         public int? Notes { get; set; }
