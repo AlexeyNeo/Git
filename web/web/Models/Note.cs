@@ -1,4 +1,4 @@
-namespace web.Models
+﻿namespace web.Models
 {
     using System;
     using System.Collections.Generic;

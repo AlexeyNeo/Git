@@ -1,4 +1,4 @@
-namespace web.Models
+﻿namespace web.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,27 +18,28 @@ namespace web.Models
         public int id { get; set; }
 
         [Required]
+        [Display(Name = "Заголовок")]
         [StringLength(100)]
         public string title { get; set; }
 
         [Column(TypeName = "text")]
-        [Display(Name = "���� �����")]
+        [Display(Name = "Тело")]
         [Required]
         
         public string body { get; set; }
 
         public int? Notes { get; set; }
-
+        [Display(Name = "Дата создания")]
         [Column(TypeName = "date")]
         public DateTime createDate { get; set; }
-
+        [Display(Name = "Дата редактирования")]
         [Column(TypeName = "date")]
         public DateTime? editingDate { get; set; }
 
         public int? ThemeNotes { get; set; }
 
         public byte? category { get; set; }
-
+        [Display(Name = "Категория")]
         public virtual Category Category1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

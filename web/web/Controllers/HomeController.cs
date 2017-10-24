@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using web.Models;
 
 namespace web.Controllers
 {
     public class HomeController : Controller
     {
+        private blogdb db = new blogdb();
         public ActionResult Index()
         {
-            return View();
+            var category = db.Categories;
+           
+            return View(category.ToList());
         }
+    
 
         public ActionResult About()
         {

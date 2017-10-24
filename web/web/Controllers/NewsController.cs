@@ -10,118 +10,107 @@ using web.Models;
 
 namespace web.Controllers
 {
-    public class ThemesController : Controller
+    public class NewsController : Controller
     {
         private blogdb db = new blogdb();
 
-        // GET: Themes
+        // GET: News
         public ActionResult Index()
         {
-            var themes = db.Themes.Include(t => t.Category1);
-            return View(themes.ToList());
+            return View(db.News.ToList());
         }
 
-        public ActionResult Category(byte id)
-        {
-            var themes = db.Themes.Where(t => t.category == id);
-          
-            return View("Index",themes.ToList());
-        }
-        // GET: Themes/Details/5
-        public ActionResult Details(int? id)
+        // GET: News/Details/5
+        public ActionResult Details(byte? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Theme theme = db.Themes.Find(id);
-            if (theme == null)
+            News news = db.News.Find(id);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            return View(theme);
+            return View(news);
         }
 
-        // GET: Themes/Create
+        // GET: News/Create
         public ActionResult Create()
         {
-            ViewBag.category = new SelectList(db.Categories, "id", "text");
             return View();
         }
 
-        // POST: Themes/Create
+        // POST: News/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,title,body,Notes,createDate,editingDate,ThemeNotes,category")] Theme theme)
+        public ActionResult Create([Bind(Include = "id,title,body,date")] News news)
         {
             if (ModelState.IsValid)
             {
-                db.Themes.Add(theme);
+                db.News.Add(news);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.category = new SelectList(db.Categories, "id", "text", theme.category);
-            return View(theme);
+            return View(news);
         }
 
-        // GET: Themes/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: News/Edit/5
+        public ActionResult Edit(byte? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Theme theme = db.Themes.Find(id);
-            if (theme == null)
+            News news = db.News.Find(id);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.category = new SelectList(db.Categories, "id", "text", theme.category);
-            return View(theme);
+            return View(news);
         }
 
-        // POST: Themes/Edit/5
+        // POST: News/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,title,body,Notes,createDate,editingDate,ThemeNotes,category")] Theme theme)
+        public ActionResult Edit([Bind(Include = "id,title,body,date")] News news)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(theme).State = EntityState.Modified;
+                db.Entry(news).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.category = new SelectList(db.Categories, "id", "text", theme.category);
-            return View(theme);
+            return View(news);
         }
 
-        // GET: Themes/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: News/Delete/5
+        public ActionResult Delete(byte? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Theme theme = db.Themes.Find(id);
-            if (theme == null)
+            News news = db.News.Find(id);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            return View(theme);
+            return View(news);
         }
 
-        // POST: Themes/Delete/5
+        // POST: News/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(byte id)
         {
-            Theme theme = db.Themes.Find(id);
-            db.Themes.Remove(theme);
+            News news = db.News.Find(id);
+            db.News.Remove(news);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
