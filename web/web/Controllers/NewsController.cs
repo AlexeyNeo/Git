@@ -15,9 +15,17 @@ namespace web.Controllers
         private blogdb db = new blogdb();
 
         // GET: News
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    return View(db.News.ToList());
+        //}
+
+        public ActionResult Index(int? id)
         {
-            return View(db.News.ToList());
+            if (id == null)
+                return View(db.News.ToList());
+            ViewBag.news = db.News.Where(m => m.id == id);
+            return View();
         }
 
         // GET: News/Details/5
