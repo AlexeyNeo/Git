@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;
+п»їusing System.Runtime.InteropServices;
 using Newtonsoft.Json;
 
 namespace web.Models
@@ -15,15 +15,15 @@ namespace web.Models
         
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public byte id { get; set; }
-        [Display(Name = "Заголовок")]
+        [Display(Name = "Р—Р°РіРѕР»РѕРІРѕРє")]
         [Required]
         [StringLength(100)]
         public string title { get; set; }
-        [Display(Name = "Тело")]
+        [Display(Name = "РўРµР»Рѕ")]
         [Column(TypeName = "text")]
         [Required]
         public string body { get; set; }
-        [Display(Name = "Дата создания")]
+        [Display(Name = "Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ")]
         [Column(TypeName = "date")]
         public DateTime date { get; set; }
     }

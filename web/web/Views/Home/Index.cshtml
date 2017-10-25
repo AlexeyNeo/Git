@@ -1,16 +1,46 @@
 ﻿@model IEnumerable<web.Models.Category>
+ 
 @{
     ViewBag.Title = "Главная страница";
 }
 
 <div class="row top-buffer">
-    <div class="list-group col-lg-3">
-        <a href="#" class="list-group-item active">
-            Категории
-        </a>
-        @foreach( var  item in Model)
+<div class="list-group col-lg-3">
+    <br /> 
+    <a href="#" class="list-group-item active">
+        Категории
+    </a>
+    @foreach (var  item in Model)
     {
         <a href="/Themes/category/@item.id" class="list-group-item">@item.text </a>
     }
+</div>
+
+   
+    <br/>
+    
+    <div class="list-group col-xs-8">
+        <div class="panel panel-default">
+           
+            <div class="panel-heading">Новости</div>
+
+            <table class="table table-condensed table-hover">
+
+                </>
+                @foreach (var item in ViewBag.cat)
+                {
+                    <tr>
+                        <td>
+                            <a href="Themes/@item.id"> <H4>@item.title</H4>    </a>                    <p class="col-lg-offset-10">@item.date</p>
+                        </td>
+
+
+                    </tr>
+
+
+                }
+
+            </table>
+        </div>
     </div>
 </div>

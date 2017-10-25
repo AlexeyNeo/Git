@@ -13,8 +13,10 @@ namespace web.Controllers
         public ActionResult Index()
         {
             var category = db.Categories;
-           
-            return View(category.ToList());
+            var news = db.News;
+          
+            ViewBag.cat = news.ToList();
+            return View( category.ToList());
         }
     
 
