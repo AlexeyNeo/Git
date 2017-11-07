@@ -18,7 +18,12 @@ namespace web.Controllers
             ViewBag.cat = news.ToList();
             return View( category.ToList());
         }
-    
+
+        [Authorize(Roles = @"admin")]
+        public ActionResult Admin()
+        {
+            return View();
+        }
 
         public ActionResult About()
         {

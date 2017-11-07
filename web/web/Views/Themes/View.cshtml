@@ -1,0 +1,40 @@
+﻿@model IEnumerable<web.Models.Theme>
+
+@{ string cat = "";
+}
+
+
+
+<meta charset="utf-8" />
+
+<br/>
+<div class="list-group col-lg-12">
+    <div class="panel panel-default">
+          
+        <div class="panel-heading"> </div>
+
+        <table class="table table-condensed table-hover">
+
+            </>
+            @foreach (var item in Model)
+            {
+                cat = item.Category1.text;
+                <tr>
+                    <td>
+                        <a href="../Read/@item.id"> <H4>@item.title</H4></a> <p class="col-lg-offset-10">@item.createDate</p>
+                    </td>
+
+
+                </tr>
+
+
+            }
+
+        </table>
+    </div>
+</div>
+
+
+   
+        </div>
+</div>

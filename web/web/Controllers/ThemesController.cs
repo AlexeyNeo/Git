@@ -23,10 +23,27 @@ namespace web.Controllers
 
         public ActionResult Category(byte id)
         {
-            var themes = db.Themes.Where(t => t.category == id);
-          
-            return View("Index",themes.ToList());
+            Theme theme = new Theme();
+            
+            var themes = db.Themes.Include(t => t.Category1).Where(t => t.category == id);
+            var category = db.Categories.Where(m => m.id == id);
+            ViewBag.id = id;
+            ViewBag.t = category;
+            return View("View",themes.ToList());
         }
+
+        public ActionResult Read(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var theme = db.Themes.Find(id);
+               
+            return View(theme);
+        }
+
         // GET: Themes/Details/5
         public ActionResult Details(int? id)
         {
@@ -42,7 +59,15 @@ namespace web.Controllers
             return View(theme);
         }
 
+        //public ActionResult View()
+        //{
+        //    var theme = db.Themes;
+        //    return View(theme);
+        //}
+
+
         // GET: Themes/Create
+        [Authorize(Roles = @"admin")]
         public ActionResult Create()
         {
             ViewBag.category = new SelectList(db.Categories, "id", "text");
@@ -54,10 +79,12 @@ namespace web.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = @"admin")]
         public ActionResult Create([Bind(Include = "id,title,body,Notes,createDate,editingDate,ThemeNotes,category")] Theme theme)
         {
             if (ModelState.IsValid)
             {
+                theme.createDate = DateTime.Now;
                 db.Themes.Add(theme);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -68,6 +95,7 @@ namespace web.Controllers
         }
 
         // GET: Themes/Edit/5
+        [Authorize(Roles = @"admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -88,11 +116,13 @@ namespace web.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = @"admin")]
         public ActionResult Edit([Bind(Include = "id,title,body,Notes,createDate,editingDate,ThemeNotes,category")] Theme theme)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(theme).State = EntityState.Modified;
+                theme.editingDate = DateTime.Now;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -101,6 +131,7 @@ namespace web.Controllers
         }
 
         // GET: Themes/Delete/5
+        [Authorize(Roles = @"admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

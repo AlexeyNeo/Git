@@ -20,13 +20,22 @@ namespace web.Controllers
         //    return View(db.News.ToList());
         //}
 
+        [Authorize(Roles = @"admin")]
+        public ActionResult View()
+        {
+
+            return View("View", db.News.ToList());
+
+        }
+
         public ActionResult Index(int? id)
         {
             if (id == null)
                 return View(db.News.ToList());
             ViewBag.news = db.News.Where(m => m.id == id);
-            return View();
+            return View("Index");
         }
+
 
         // GET: News/Details/5
         public ActionResult Details(byte? id)
@@ -42,11 +51,13 @@ namespace web.Controllers
             }
             return View(news);
         }
-
+       
         // GET: News/Create
+        [Authorize(Roles = @"admin")]
         public ActionResult Create()
         {
-            return View();
+            return View("Create");
+            
         }
 
         // POST: News/Create
@@ -54,18 +65,22 @@ namespace web.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,title,body,date")] News news)
+        [Authorize(Roles = @"admin")]
+        public ActionResult Create([Bind(Include = "id,title,body")] News news)
         {
             if (ModelState.IsValid)
             {
+                news.date = DateTime.Now;
+                
                 db.News.Add(news);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("View");
             }
 
-            return View(news);
+            return View("View");
         }
 
+        [Authorize(Roles = @"admin")]
         // GET: News/Edit/5
         public ActionResult Edit(byte? id)
         {
@@ -78,7 +93,7 @@ namespace web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(news);
+            return View();
         }
 
         // POST: News/Edit/5
@@ -86,6 +101,7 @@ namespace web.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = @"admin")]
         public ActionResult Edit([Bind(Include = "id,title,body,date")] News news)
         {
             if (ModelState.IsValid)
@@ -94,9 +110,9 @@ namespace web.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(news);
+            return View("View");
         }
-
+        [Authorize(Roles = @"admin")]
         // GET: News/Delete/5
         public ActionResult Delete(byte? id)
         {
